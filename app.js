@@ -1,7 +1,7 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -12,15 +12,22 @@ db.on('error', (err) => console.log(err));
 
 db.once('open', () => console.log('Connected'));
 
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
+const updateRouter = require('./routes/update');
 
-var app = express();
+
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.set('views', './views')
+app.set('view engine', 'ejs');
+
 app.use('/countries', indexRouter);
+
+app.use('/update', updateRouter);
 
 module.exports = app;

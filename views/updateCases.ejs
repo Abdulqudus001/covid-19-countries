@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COVID19 Stats</title>
+</head>
+<body>
+  <h2>Cases for <%= country.name %> </h2>
+  
+  <form action="/update/<%= country.name %>" method="post">
+    <input type="submit" value="Submit">
+    <table>
+      <thead>
+        <th>State</th>
+        <th>Cases</th>
+        <th>Current Count</th>
+      </thead>
+      <tbody>
+          <% country.states.forEach(state => { %>
+            <tr>
+              <td><%= state.name %></td>
+              <td><%= state.cases || 0 %> </td>
+              <td onclick="showUpdateForm">
+                <input type="number" name="count" placeholder="Number">
+              </td>
+              
+            </tr>
+          <% }) %>
+      </tbody>
+    </table>
+  </form>
+  <script>
+    const showUpdateForm = (e) => {
+      console.log(e);
+      const form = document.querySelector('form');
+      form.style.display = 'flex';
+    }
+  </script>
+  <style>
+    form {
+    }
+  </style>
+</body>
+</html>
