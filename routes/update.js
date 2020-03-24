@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:name', (req, res) => {
-  const country = Country.find({name: req.params.name}, (err, data) => {
+  const country = Country.find({name: new RegExp(`${req.params.name}$`, 'i')}, (err, data) => {
     if (err) {
       res.status(500).json({ message: "Something went wrong" });
     } else {
