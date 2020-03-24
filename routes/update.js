@@ -35,7 +35,7 @@ router.post('/:name', (req, res) => {
       currentCountry = data[0];
       const updatedData = req.body.count;
       updatedData.forEach((count, index) => {
-        currentCountry.states[index].cases = count;
+        currentCountry.states[index].cases = count || 0;
       });
       Country.update({ name: req.params.name }, { states: currentCountry.states }, (err, updated) => {
         if (err) {
