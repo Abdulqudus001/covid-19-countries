@@ -33,12 +33,19 @@ router.post('/:name', (req, res) => {
       res.status(500).json({ message: "Something went wrong" });
     } else {
       currentCountry = data[0];
-      const updatedData = req.body.count;
-      updatedData.forEach((count, index) => {
-        if (count) {
-          currentCountry.states[index].cases = count;
-        }
-      });
+      let updatedData = '';
+      if (Array.isArray(req.body.count)) {
+        updatedData = req.body.count;
+      } else if (req.body.count) {
+        updatedData = [req.body.count];
+      }
+      if (updatedData) {
+        updatedData.forEach((count, index) => {
+          if (count) {
+            currentCountry.states[index].cases = count;
+          }
+        });
+      }
       Country.update({ name: req.params.name }, { states: currentCountry.states }, (err, updated) => {
         if (err) {
           res.status(500).json({ message: "Something went wrong" });
