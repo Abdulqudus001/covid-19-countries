@@ -1,5 +1,4 @@
 const express = require('express');
-const countries = require('countryjs');
 const router = express.Router();
 
 const Country = require('../model/countries');
