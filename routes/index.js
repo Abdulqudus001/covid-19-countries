@@ -38,7 +38,11 @@ router.get('/nigeria', (req, response) => {
         });
       }
     })
-    response.status(200).json(total);
+    const data = {
+      "name": "Nigeria",
+      "states": total
+    }
+    response.status(200).json(data);
   }).catch(err => {
     response.status(500).json({ message: 'Data not found' });
   })
