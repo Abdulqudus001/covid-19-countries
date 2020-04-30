@@ -32,12 +32,21 @@ router.get('/nigeria', (req, response) => {
       if (index !== 0) {
         const stateName = $(tr).find('td:nth-child(1)').text();
         const cases = $(tr).find('td:nth-child(3)').text();
-        total.push({
-          name: trimText(stateName),
-          cases: parseInt(trimText(cases))
-        });
+
+        if (trimText(stateName).includes('Abuja')) {
+          total.push({
+            name: 'Federal Capital Territory',
+            cases: parseInt(trimText(cases))
+          });
+        } else {
+          total.push({
+            name: trimText(stateName),
+            cases: parseInt(trimText(cases))
+          });
+        }
       }
-    })
+    });
+
     const data = {
       "name": "Nigeria",
       "states": total
