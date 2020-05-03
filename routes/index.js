@@ -11,6 +11,10 @@ const trimText = text => {
   return JSON.parse(JSON.stringify(text).replace(/\\n/g, ''));
 }
 
+const formatNum = num => {
+  return num.replace(/\D/g,'');
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const countries = Country.find({}, (err, data) => {
@@ -29,21 +33,19 @@ router.get('/nigeria', (req, response) => {
     const table = $('#custom3 > tbody > tr');
     const total = [];
     table.each((index, tr) => {
-      if (index !== 0) {
-        const stateName = $(tr).find('td:nth-child(1)').text();
-        const cases = $(tr).find('td:nth-child(3)').text();
+      const stateName = $(tr).find('td:nth-child(1)').text();
+      const cases = $(tr).find('td:nth-child(2)').text();
 
-        if (trimText(stateName).includes('Abuja')) {
-          total.push({
-            name: 'Federal Capital Territory',
-            cases: parseInt(trimText(cases))
-          });
-        } else {
-          total.push({
-            name: trimText(stateName),
-            cases: parseInt(trimText(cases))
-          });
-        }
+      if (trimText(stateName).includes('Abuja')) {
+        total.push({
+          name: 'Federal Capital Territory',
+          cases: parseInt(formatNum(trimText(cases)))
+        });
+      } else {
+        total.push({
+          name: trimText(stateName),
+          cases: parseInt(formatNum(trimText(cases)))
+        });
       }
     });
 
