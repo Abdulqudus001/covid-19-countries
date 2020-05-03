@@ -36,7 +36,7 @@ router.get('/nigeria', (req, response) => {
       const stateName = $(tr).find('td:nth-child(1)').text();
       const cases = $(tr).find('td:nth-child(2)').text();
 
-      if (trimText(stateName).includes('Abuja')) {
+      if (['Abuja', 'FCT', 'Federal Capital Territory'].includes(trimText(stateName))) {
         total.push({
           name: 'Federal Capital Territory',
           cases: parseInt(formatNum(trimText(cases)))
